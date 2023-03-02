@@ -44,7 +44,6 @@ class Client(models.Model):
     #: Token Time To Live (TTL) in timedelta. Format: ``DAYS HH:MM:SS``.
     token_ttl = models.DurationField(
         null=False,
-        default=durin_settings.DEFAULT_TOKEN_TTL,
         default=_get_DEFAULT_TOKEN_TTL,
         verbose_name=_("Token Time To Live (TTL)"),
         help_text=_(
