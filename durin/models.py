@@ -19,6 +19,9 @@ def _create_token_string() -> str:
         urandom(int(durin_settings.TOKEN_CHARACTER_LENGTH / 2))
     ).decode()
 
+def _get_DEFAULT_TOKEN_TTL():
+    return durin_settings.DEFAULT_TOKEN_TTL
+
 
 class Client(models.Model):
     """
@@ -42,6 +45,7 @@ class Client(models.Model):
     token_ttl = models.DurationField(
         null=False,
         default=durin_settings.DEFAULT_TOKEN_TTL,
+        default=_get_DEFAULT_TOKEN_TTL,
         verbose_name=_("Token Time To Live (TTL)"),
         help_text=_(
             """
