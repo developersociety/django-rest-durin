@@ -19,6 +19,7 @@ def _create_token_string() -> str:
         urandom(int(durin_settings.TOKEN_CHARACTER_LENGTH / 2))
     ).decode()
 
+
 def _get_DEFAULT_TOKEN_TTL():
     return durin_settings.DEFAULT_TOKEN_TTL
 
@@ -99,17 +100,6 @@ class AuthTokenManager(models.Manager):
 
 
 class AuthToken(models.Model):
-    """
-    Token model with a unique constraint on ``User`` <-> ``Client`` relationship.
-    """
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=["user", "client"], name="unique token for user per client"
-            )
-        ]
-
     objects = AuthTokenManager()
 
     #: Token string
