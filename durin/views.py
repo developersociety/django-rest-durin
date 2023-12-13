@@ -29,6 +29,7 @@ class LoginView(APIView):
     helper methods:
     """
 
+    swagger_schema = None
     authentication_classes = []
     permission_classes = []
 
@@ -133,6 +134,8 @@ class RefreshView(APIView):
     2. :meth:`durin.signals.token_renewed` is called.
     """
 
+    swagger_schema = None
+
     @staticmethod
     def format_expiry_datetime(expiry: "datetime") -> str:
         """
@@ -168,6 +171,8 @@ class LogoutView(APIView):
     :returns: 204 (No content)
     """
 
+    swagger_schema = None
+
     def post(self, request, *args, **kwargs):
         request._auth.delete()
         user_logged_out.send(
@@ -191,6 +196,8 @@ class LogoutAllView(APIView):
     :returns: 204 (No content)
     """
 
+    swagger_schema = None
+
     def post(self, request, *args, **kwargs):
         request.user.auth_token_set.all().delete()
         user_logged_out.send(
@@ -212,6 +219,7 @@ class TokenSessionsViewSet(
     queryset = AuthToken.objects.select_related("client").all()
     serializer_class = TokenSessionsSerializer
     pagination_class = None
+    swagger_schema = None
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -244,6 +252,8 @@ class APIAccessTokenView(APIView):
 
     .. versionadded:: 1.0.0
     """
+
+    swagger_schema = None
 
     @property
     def client_name(self) -> str:
